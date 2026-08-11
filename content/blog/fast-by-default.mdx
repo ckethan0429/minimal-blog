@@ -1,0 +1,69 @@
+---
+title: Fast by default
+description: Performance is a product decision. Make the fast path the only path.
+date: "2026-04-02"
+updated: "2026-04-10"
+tags:
+  - performance
+  - web
+  - nextjs
+draft: false
+---
+
+Users do not open a performance dashboard. They open your product and decide — in under a second — whether it feels trustworthy.
+
+Performance is not a late-stage optimization. It is a set of defaults that make the slow path hard to choose.
+
+## Start with the budget
+
+Before you write a line of code, decide what "good" means:
+
+| Metric | Target (mobile) |
+| --- | --- |
+| LCP | < 2.5s |
+| INP | < 200ms |
+| CLS | < 0.1 |
+| JS (initial) | < 150KB gzipped |
+
+Budgets only work when they are enforced. Wire them into CI. Fail the build when they regress. Treat a performance regression like a broken test.
+
+## Prefer less JavaScript
+
+The fastest code is code that never downloads. Server Components, static generation, and HTML-first pages are not trends — they are a return to the web's strengths.
+
+```tsx
+// Static by default, dynamic only when needed
+export default async function PostPage({ params }: Props) {
+  const post = await getPost(params.slug);
+  return <Article post={post} />;
+}
+```
+
+Ask, for every client component:
+
+- Does this need interactivity?
+- Can the server render the initial state?
+- Is the library worth its weight?
+
+## Images and fonts are free wins
+
+Use modern formats (`avif`, `webp`). Size images to their display box. Lazy-load below the fold. Host fonts with `next/font` so text does not flash or block paint.
+
+Typography that loads cleanly is a performance feature **and** a design feature.
+
+## Measure what users feel
+
+Lab scores are useful. Field data is truth. Watch real user metrics, not just Lighthouse on a quiet network.
+
+When something feels slow:
+
+1. Reproduce on a mid-range phone
+2. Profile the critical path
+3. Fix the bottleneck, not the symptom
+4. Re-measure
+
+## The default that sticks
+
+Make the template fast. Make the checklist short. Make the slow path require an explicit decision.
+
+If performance is optional, it will eventually be optional-ed away. If it is the default, it compounds — quietly, every release.

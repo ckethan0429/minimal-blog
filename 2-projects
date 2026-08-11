@@ -1,0 +1,23 @@
+Create a projects page.
+
+Each project contains
+
+Title
+
+Description
+
+Tech Stack
+
+GitHub
+
+Website
+
+Status
+
+Screenshots
+
+Support featured projects.
+
+Support archived projects.
+
+Projects should be stored as structured data instead of hardcoded components.

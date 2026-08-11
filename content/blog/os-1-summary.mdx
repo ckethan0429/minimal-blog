@@ -1,0 +1,274 @@
+---
+title: Operating Systems — Today's Summary
+description: An operating system (OS) is software that manages hardware resources and provides services to applications.
+date: "2027-07-16"
+tags:
+  - meta
+  - writing
+draft: false
+---
+
+# Operating Systems — Today's Summary
+
+## 1. What is an Operating System?
+
+An operating system (OS) is software that manages hardware resources and provides services to applications.
+
+Its main responsibilities include:
+
+- Process management
+- Thread management
+- CPU scheduling
+- Memory management
+- File systems
+- I/O management
+
+---
+
+## 2. Process
+
+A **process** is a **running program**.
+
+It owns resources such as:
+
+- Virtual memory
+- Heap
+- Global variables
+- Environment variables (`process.env`)
+- Open files (file descriptors)
+- Process ID (PID)
+
+Each process has its own isolated memory space.
+
+```
+Process A
+ ├── Memory
+ ├── Open Files
+ ├── Environment Variables
+ └── Threads
+
+Process B
+ ├── Memory
+ ├── Open Files
+ ├── Environment Variables
+ └── Threads
+```
+
+Processes are isolated from one another.
+
+---
+
+## 3. Thread
+
+A **thread** is the **unit of execution**.
+
+The CPU executes **threads**, not processes.
+Each thread has its own:
+
+- Program Counter (PC)
+- Registers
+- Stack
+    
+
+Threads in the same process share:
+
+- Code
+- Heap
+- Global variables
+- Environment variables
+- Open files
+    
+
+```
+Process
+
+Shared
+ ├── Code
+ ├── Heap
+ ├── Globals
+ ├── Open Files
+ └── Environment
+
+Threads
+ ├── Thread 1 (own stack)
+ ├── Thread 2 (own stack)
+ └── Thread 3 (own stack)
+```
+
+---
+
+## 4. Global Variables vs .env
+
+We clarified that these are different concepts.
+
+### Global Variable
+
+```c
+int counter = 0;
+```
+
+- Stored in the process's memory.
+    
+- Shared by threads in the same process.
+    
+- Not accessible to other processes.
+    
+
+### `.env`
+
+```
+DB_HOST=localhost
+API_KEY=abc123
+```
+
+A `.env` file is **just a text file**.
+
+A library (e.g., `dotenv`) reads it and populates the process's environment variables:
+
+```ts
+process.env.DB_HOST
+```
+
+So:
+
+> `.env` → configuration file  
+> `process.env` → environment variables inside a process
+
+---
+
+## 5. Open Files
+
+When a process opens a file:
+
+```c
+fopen("log.txt")
+```
+
+the kernel creates a file descriptor.
+
+Example:
+
+```
+FD 0 -> stdin
+FD 1 -> stdout
+FD 2 -> stderr
+FD 3 -> log.txt
+```
+
+All threads in the same process share this open file table.
+
+---
+
+## 6. CPU Scheduling
+
+The scheduler decides **which thread runs next**.
+
+Typical thread states:
+
+```
+Ready
+   ↓
+Running
+   ↓
+Waiting (I/O)
+   ↓
+Ready
+```
+
+Common scheduling algorithms:
+
+- FCFS
+    
+- SJF
+    
+- Round Robin
+    
+- Priority Scheduling
+    
+
+---
+
+## 7. Physical Cores vs Logical CPUs
+
+We discussed the difference between hardware and what the OS sees.
+
+Example:
+
+```
+8 Physical Cores
+↓
+
+16 Logical CPUs (SMT/Hyper-Threading)
+```
+
+The operating system can schedule **up to 16 software threads concurrently**.
+
+However, each pair of logical CPUs shares one physical core, so the performance is **not equivalent to 16 physical cores**.
+
+---
+
+## 8. Which Is More Important?
+
+You asked whether processes or threads are more important.
+
+The key takeaway was:
+
+- **Process** = owns resources.
+- **Thread** = executes code.
+    
+
+The CPU schedules **threads**, making them central to CPU scheduling and concurrency. Processes remain essential because they provide memory isolation and resource ownership.
+
+---
+
+## 9. Topics Still Remaining About Processes
+
+We identified several important topics that we haven't explored yet:
+
+- Process creation (`fork`)⭐⭐⭐⭐⭐
+    
+- Program replacement (`exec`)⭐⭐⭐⭐⭐
+    
+- Process states
+    
+- Process Control Block (PCB)
+    
+- Context switching
+    
+- Process memory layout⭐⭐⭐⭐⭐
+    
+- Virtual memory⭐⭐⭐⭐⭐
+    
+- Inter-process communication (IPC)
+    
+- Zombie and orphan processes
+    
+- Daemon processes
+    
+- System calls⭐⭐⭐⭐
+    
+
+---
+
+## Key Concepts to Remember
+
+|Concept|Key Idea|
+|---|---|
+|Process|Owns resources|
+|Thread|Executes instructions|
+|CPU|Executes threads|
+|Scheduler|Chooses which thread runs|
+|Core|Physical execution hardware|
+|Logical CPU|Scheduling target exposed to the OS|
+|Global variable|Shared within one process|
+|Environment variable|Process configuration|
+|`.env`|Text configuration file|
+|Open file|Kernel-managed file descriptor|
+
+---
+
+## One sentence that ties everything together
+
+> **A process provides an isolated execution environment and owns resources; threads within that process use those shared resources to execute code, while the operating system schedules threads onto logical CPUs.**
+
+This is the foundation of operating systems. Everything you'll study next—**virtual memory, synchronization, deadlocks, file systems, and even containers like Docker**—builds on these concepts.

@@ -1,7 +1,30 @@
 import type { NextConfig } from "next";
+import { withContentCollections } from "@content-collections/next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  poweredByHeader: false,
+  // Smaller responses for text assets
+  compress: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
+  // Tree-shake heavy packages when imported as namespaces
+  experimental: {
+    optimizePackageImports: ["@content-collections/mdx"],
+  },
+  // Avoid incorrect monorepo root inference when parent lockfiles exist
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
-export default nextConfig;
+// withContentCollections must be the outermost plugin
+export default withContentCollections(nextConfig);

@@ -1,0 +1,89 @@
+[
+  {
+    "slug": "model-gateway",
+    "title": {
+      "en": "Model Gateway",
+      "ko": "모델 게이트웨이"
+    },
+    "description": {
+      "en": "Open-source edge gateway for LLM traffic — routing, rate limits, and token-level observability across providers.",
+      "ko": "LLM 트래픽을 위한 오픈소스 엣지 게이트웨이 — 라우팅, 레이트 리밋, 프로바이더를 가로지르는 토큰 단위 관측성."
+    },
+    "year": "2026",
+    "status": "active",
+    "stack": ["TypeScript", "Cloudflare", "OpenTelemetry"],
+    "github": "https://github.com",
+    "website": "https://github.com",
+    "featured": true,
+    "screenshots": []
+  },
+  {
+    "slug": "control-plane-kit",
+    "title": {
+      "en": "Control Plane Kit",
+      "ko": "컨트롤 플레인 키트"
+    },
+    "description": {
+      "en": "Composable building blocks for multi-tenant cloud control planes: APIs, audit logs, and policy hooks.",
+      "ko": "멀티테넌트 클라우드 컨트롤 플레인을 위한 조합형 빌딩 블록: API, 감사 로그, 정책 훅."
+    },
+    "year": "2025",
+    "status": "shipped",
+    "stack": ["Go", "Kubernetes", "PostgreSQL"],
+    "github": "https://github.com",
+    "website": "https://github.com",
+    "featured": true,
+    "screenshots": []
+  },
+  {
+    "slug": "fleet-metrics",
+    "title": {
+      "en": "Fleet Metrics",
+      "ko": "플릿 메트릭스"
+    },
+    "description": {
+      "en": "Lightweight pipeline for infrastructure metrics at scale — scrape, rollup, and alert without a heavyweight stack.",
+      "ko": "대규모 인프라 메트릭을 위한 가벼운 파이프라인 — 무거운 스택 없이 스크레이프, 롤업, 알림."
+    },
+    "year": "2025",
+    "status": "shipped",
+    "stack": ["Rust", "Prometheus", "Object Storage"],
+    "github": "https://github.com",
+    "featured": true,
+    "screenshots": []
+  },
+  {
+    "slug": "minimal-blog",
+    "title": {
+      "en": "This site",
+      "ko": "이 사이트"
+    },
+    "description": {
+      "en": "A fast, accessible personal site built with Next.js, MDX, and Content Collections. No CMS, no database.",
+      "ko": "Next.js, MDX, Content Collections로 만든 빠르고 접근성 좋은 개인 사이트. CMS 없음, DB 없음."
+    },
+    "year": "2026",
+    "status": "active",
+    "stack": ["Next.js", "MDX", "Tailwind"],
+    "github": "https://github.com",
+    "featured": false,
+    "screenshots": []
+  },
+  {
+    "slug": "cli-palette",
+    "title": {
+      "en": "CLI Palette",
+      "ko": "CLI 팔레트"
+    },
+    "description": {
+      "en": "A command palette pattern for terminal tools — fuzzy find, recent history, and composable actions.",
+      "ko": "터미널 도구를 위한 커맨드 팔레트 패턴 — 퍼지 검색, 최근 기록, 조합 가능한 액션."
+    },
+    "year": "2024",
+    "status": "archived",
+    "stack": ["Go", "Bubble Tea"],
+    "github": "https://github.com",
+    "featured": false,
+    "screenshots": []
+  }
+]

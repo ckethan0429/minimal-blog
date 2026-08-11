@@ -1,0 +1,26 @@
+Optimize performance.
+
+Target
+
+Lighthouse
+
+Performance > 98
+
+Accessibility > 100
+
+SEO > 100
+
+Best Practices > 100
+
+Avoid unnecessary JavaScript.
+
+Prefer Server Components.
+
+Use dynamic imports when appropriate.
+
+Optimize images.
+
+Use next/font.
+
+Keep bundle size as small as possible.
+

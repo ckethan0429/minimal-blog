@@ -1,0 +1,55 @@
+---
+title: Shipping is a habit
+description: Velocity is not a sprint metric. It is the quiet accumulation of finished work.
+date: "2026-03-18"
+tags:
+  - craft
+  - process
+draft: false
+---
+
+Teams talk about velocity as if it were a number on a board. Story points. Throughput charts. Burn-downs that look healthy until they don't.
+
+The useful version of velocity is quieter: **how often do finished things leave your hands?**
+
+## Small units compound
+
+A pull request that takes three days is harder to review, harder to revert, and more likely to accumulate scope. A change that takes three hours is easier to reason about — and easier to ship.
+
+This is not an argument for rushed work. It is an argument for **bounded work**.
+
+```ts
+// Prefer small, complete units
+type ShipUnit = {
+  scope: "one user-visible outcome";
+  reviewable: true;
+  reversible: true;
+};
+```
+
+## Finish more than you start
+
+The cost of work-in-progress is real. Context switches tax memory. Half-built features tax design. Unmerged branches tax confidence.
+
+A useful weekly question:
+
+1. What did we start?
+2. What did we finish?
+3. What did we learn that changes next week's plan?
+
+If (1) consistently exceeds (2), you are accumulating inventory — not progress.
+
+## Taste is a shipping skill
+
+Shipping often does not mean shipping carelessly. Taste shows up in what you refuse to ship: the extra abstraction, the premature optimization, the feature that confuses the primary path.
+
+The teams I admire ship with restraint. Their products feel inevitable because unfinished ideas never make it past the door.
+
+## A practical cadence
+
+- Ship something user-visible every week when possible
+- Prefer boring technology when the problem is already hard
+- Write the post-mortem before you need one
+- Delete more than you add when you can
+
+Habits beat heroics. The goal is not a dramatic launch. The goal is a product that keeps getting better — on Tuesdays, when nobody is watching.

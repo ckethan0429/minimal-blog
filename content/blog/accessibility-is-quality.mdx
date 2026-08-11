@@ -1,0 +1,70 @@
+---
+title: Accessibility is quality
+description: WCAG is not a compliance checklist. It is a description of software that works for more people.
+date: "2026-05-12"
+tags:
+  - accessibility
+  - design
+  - frontend
+draft: false
+---
+
+Accessibility work is often framed as obligation. That framing loses the plot.
+
+Accessible interfaces are higher-quality interfaces. They are more resilient, more keyboard-friendly, more understandable under stress, and usually simpler.
+
+## Semantic HTML is the foundation
+
+Before ARIA, before focus traps, before clever components: use the right element.
+
+| Need | Prefer |
+| --- | --- |
+| Navigation | `<nav>` + links |
+| Action | `<button>` |
+| Document structure | heading levels in order |
+| Form control | `<label>` associated with input |
+| Landmark | `<main>`, `<header>`, `<footer>` |
+
+ARIA can extend HTML. It should not replace it.
+
+## Focus is a feature
+
+If you cannot tab through a page and understand where you are, the product is incomplete.
+
+- Visible focus rings (never `outline: none` without a replacement)
+- Logical tab order that matches visual order
+- Skip links for long navigation
+- Modals that trap focus and restore it on close
+
+```css
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Color is not the only signal
+
+Error states need more than a red border. Links need more than hue alone. Charts need patterns or labels, not color-only legends.
+
+Aim for **WCAG AA** contrast as a floor — then test with real eyes, real themes, and real sunlight.
+
+## Test like a user, not only like a linter
+
+Automated tools catch maybe 30–40% of issues. Still run them. Then:
+
+1. Keyboard-only pass of critical flows
+2. Screen reader pass of forms and navigation
+3. Zoom to 200% and check reflow
+4. Dark mode and high-contrast checks
+
+## Ship the habit
+
+Put accessibility in the definition of done. Review PRs for focus and semantics the way you review for bugs. Document patterns so the next engineer inherits the standard.
+
+Quality is what you refuse to ship. Accessibility is one of the clearest places that refusal shows.

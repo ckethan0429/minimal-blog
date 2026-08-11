@@ -1,0 +1,27 @@
+Review the entire project.
+
+Requirements
+
+No duplicated code
+
+Consistent naming
+
+Reusable components
+
+Type-safe
+
+Strict TypeScript
+
+ESLint clean
+
+Prettier clean
+
+No unnecessary dependencies
+
+Document the folder structure.
+
+Generate a README.
+
+Generate a CONTRIBUTING guide.
+
+Explain architectural decisions.

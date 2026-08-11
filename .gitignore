@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# content collections
+.content-collections
+
 # production
 /build
 
@@ -39,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# business assets (ebooks, strategy) — never publish
+project-300k/
+# planning scratch docs
+[1-7]-*/

@@ -1,0 +1,92 @@
+---
+title: "Hermes Agent 전역 설치기"
+description: "Nous Research의 자가 개선 AI 에이전트 Hermes Agent를 macOS에 전역 설치한 과정을 정리했다. 설치 스크립트가 하는 일, 파일 구조, 검증 방법까지."
+date: "2026-08-10"
+tags:
+  - ai
+  - tooling
+draft: false
+---
+
+[Hermes Agent](https://hermes-agent.nousresearch.com/docs/)는 Nous Research가 만든 AI 에이전트다. "학습 루프가 내장된 유일한 에이전트(the only agent with a built-in learning loop)"를 표방하며, IDE에 묶인 코딩 어시스턴트가 아니라 시간이 지날수록 스스로 더 유능해지는 자율 에이전트를 지향한다. Telegram, Discord, Slack 등 20개 이상의 메시징 플랫폼과 연동되고, 작은 VPS부터 GPU 클러스터, 서버리스 환경까지 배포할 수 있다.
+
+macOS에 전역 설치한 과정을 기록해 둔다.
+
+## 설치 방법
+
+플랫폼별 설치 방법은 세 가지다.
+
+- **Windows / macOS (데스크톱 앱):** 공식 사이트에서 Hermes Desktop 인스톨러 다운로드
+- **Linux / macOS / WSL2 / Termux (CLI):**
+
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+```
+
+- **Windows (PowerShell):**
+
+```powershell
+iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+```
+
+나는 CLI 버전을 선택했다.
+
+## 스크립트부터 읽어보기
+
+`curl | bash` 패턴은 편하지만, 실행 전에 스크립트를 한 번 훑어보는 습관이 좋다. 받아서 읽어보니 3,370줄짜리 잘 짜인 bash 스크립트였고, 요약하면 이렇게 동작한다.
+
+- 일반 사용자 기준으로 **`~/.hermes/hermes-agent`에 코드를 클론**하고, 명령어를 `~/.local/bin/hermes`로 링크한다. `sudo`가 필요 없다.
+- Python 환경은 시스템 Python을 건드리지 않고 **자체 관리 [uv](https://docs.astral.sh/uv/)**(`~/.hermes/bin/uv`)로 Python 3.11 가상환경을 만든다.
+- 상속된 `PYTHONPATH` / `PYTHONHOME`을 해제해 다른 Python 환경과의 모듈 충돌을 예방하는 등 방어적인 처리가 꼼꼼하다.
+- `--skip-setup`, `--no-venv`, `--dir` 같은 옵션으로 동작을 제어할 수 있다.
+
+대화형 설정 마법사는 나중에 따로 돌리기로 하고, 설치만 진행했다.
+
+```bash
+bash install.sh --skip-setup
+```
+
+## 설치 결과
+
+몇 분 뒤 설치가 완료됐다. 눈에 띄는 건 **77개의 스킬 번들**이 함께 동기화된다는 점 — `claude-code`, `codex`, `computer-use`, `notion`, `google-workspace`, `p5js` 같은 스킬이 `~/.hermes/skills/`에 설치된다.
+
+파일 구조는 다음과 같다.
+
+| 경로 | 용도 |
+| --- | --- |
+| `~/.hermes/config.yaml` | 설정 |
+| `~/.hermes/.env` | API 키 |
+| `~/.hermes/cron/`, `sessions/`, `logs/` | 데이터 |
+| `~/.hermes/hermes-agent` | 코드 |
+| `~/.local/bin/hermes` | 명령어 링크 |
+
+설치 검증:
+
+```bash
+$ hermes --version
+Hermes Agent v0.20.0 (2026.8.3)
+Install directory: /Users/ckahn/.hermes/hermes-agent
+Python: 3.11.15
+OpenAI SDK: 2.24.0
+```
+
+`~/.local/bin`이 PATH에 없다면 셸을 리로드하면 된다(`source ~/.zshrc`).
+
+## 다음 단계: 초기 설정
+
+설치 후 첫 설정은 다음 명령으로 한다.
+
+```bash
+hermes setup --portal
+```
+
+Nous Portal OAuth 인증 한 번으로 모델 접근 권한과 함께 Tool Gateway의 네 가지 기능 — 웹 검색, 이미지 생성, TTS, 브라우저 자동화 — 이 한꺼번에 구성된다. 이후 주요 명령은 이렇다.
+
+- `hermes` — 채팅 시작
+- `hermes config` — 설정 확인/편집
+- `hermes gateway install` — 메시징 + cron 게이트웨이 서비스 설치
+- `hermes update` — 최신 버전으로 업데이트
+
+## 정리
+
+설치 과정 자체는 명령 한 줄이면 끝나지만, 인상적이었던 건 인스톨러의 완성도다. sudo 없이 홈 디렉터리 안에서 자기 완결적으로 동작하고, 자체 uv로 Python 버전 충돌을 원천 차단하며, 삭제도 `~/.hermes`만 지우면 된다. CLI 도구 배포의 좋은 참고 사례로 봐도 될 것 같다.
