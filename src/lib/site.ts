@@ -14,7 +14,7 @@ export const siteConfig = {
     email: "ckethan0429@gmail.com",
     url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
     twitter: "",
-    github: "",
+    github: "https://github.com/ckethan0429",
     linkedin: "",
     role: "Infrastructure Engineer",
     focus: [

@@ -97,6 +97,25 @@ export function BooksContent({ books }: BooksContentProps) {
           })}
         </div>
       </Section>
+
+      <Section gap="md" aria-labelledby="buy-info-heading">
+        <h2
+          id="buy-info-heading"
+          className="text-lg font-semibold tracking-tight"
+        >
+          {t.books.buyInfoTitle}
+        </h2>
+        <ul className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">
+          {t.books.buyInfoItems.map((item, i) => (
+            <li key={i} className="flex gap-2">
+              <span aria-hidden className="text-foreground/50">
+                –
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Section>
     </Container>
   );
 }

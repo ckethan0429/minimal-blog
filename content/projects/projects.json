@@ -1,54 +1,49 @@
 [
   {
-    "slug": "model-gateway",
+    "slug": "vmware-proxmox-migration",
     "title": {
-      "en": "Model Gateway",
-      "ko": "모델 게이트웨이"
+      "en": "VMware → Proxmox Migrations",
+      "ko": "VMware → Proxmox 이관"
     },
     "description": {
-      "en": "Open-source edge gateway for LLM traffic — routing, rate limits, and token-level observability across providers.",
-      "ko": "LLM 트래픽을 위한 오픈소스 엣지 게이트웨이 — 라우팅, 레이트 리밋, 프로바이더를 가로지르는 토큰 단위 관측성."
+      "en": "Production migrations off VMware after the Broadcom licensing changes — assessment, Ceph storage, SDN, Proxmox Backup Server, and cutover runbooks with rollback plans.",
+      "ko": "Broadcom 라이선스 변경 이후의 운영 환경 탈VMware 이관 — 사전진단, Ceph 스토리지, SDN, PBS 백업, 롤백 계획을 포함한 전환 런북."
     },
     "year": "2026",
     "status": "active",
-    "stack": ["TypeScript", "Cloudflare", "OpenTelemetry"],
-    "github": "https://github.com",
-    "website": "https://github.com",
+    "stack": ["Proxmox VE", "Ceph", "Proxmox Backup Server"],
     "featured": true,
     "screenshots": []
   },
   {
-    "slug": "control-plane-kit",
+    "slug": "h200-gpu-server",
     "title": {
-      "en": "Control Plane Kit",
-      "ko": "컨트롤 플레인 키트"
+      "en": "8× H200 GPU Server Bring-up",
+      "ko": "H200 8-GPU 서버 구축"
     },
     "description": {
-      "en": "Composable building blocks for multi-tenant cloud control planes: APIs, audit logs, and policy hooks.",
-      "ko": "멀티테넌트 클라우드 컨트롤 플레인을 위한 조합형 빌딩 블록: API, 감사 로그, 정책 훅."
+      "en": "Bring-up and troubleshooting of an 8× NVIDIA H200 server for AI workloads: large-BAR/MMIO and UEFI boot issues, vGPU licensing (CLS/DLS), and hardware inspection. Client anonymized.",
+      "ko": "AI 워크로드용 NVIDIA H200 8장 서버 구축·트러블슈팅: 대용량 BAR/MMIO·UEFI 부팅 이슈, vGPU 라이선스(CLS/DLS), 하드웨어 검수. 고객사는 비식별화."
     },
-    "year": "2025",
+    "year": "2026",
     "status": "shipped",
-    "stack": ["Go", "Kubernetes", "PostgreSQL"],
-    "github": "https://github.com",
-    "website": "https://github.com",
+    "stack": ["NVIDIA H200", "vGPU", "Linux"],
     "featured": true,
     "screenshots": []
   },
   {
-    "slug": "fleet-metrics",
+    "slug": "monitoring-dashboards",
     "title": {
-      "en": "Fleet Metrics",
-      "ko": "플릿 메트릭스"
+      "en": "Server Monitoring Stacks",
+      "ko": "서버 모니터링 스택"
     },
     "description": {
-      "en": "Lightweight pipeline for infrastructure metrics at scale — scrape, rollup, and alert without a heavyweight stack.",
-      "ko": "대규모 인프라 메트릭을 위한 가벼운 파이프라인 — 무거운 스택 없이 스크레이프, 롤업, 알림."
+      "en": "Prometheus/Grafana monitoring for small ops teams — dashboards, alert rules, and runbooks that operators actually read.",
+      "ko": "소규모 운영팀을 위한 Prometheus/Grafana 모니터링 — 대시보드, 알림 규칙, 운영자가 실제로 읽는 런북."
     },
     "year": "2025",
     "status": "shipped",
-    "stack": ["Rust", "Prometheus", "Object Storage"],
-    "github": "https://github.com",
+    "stack": ["Grafana", "Prometheus", "Node Exporter"],
     "featured": true,
     "screenshots": []
   },
@@ -65,24 +60,7 @@
     "year": "2026",
     "status": "active",
     "stack": ["Next.js", "MDX", "Tailwind"],
-    "github": "https://github.com",
-    "featured": false,
-    "screenshots": []
-  },
-  {
-    "slug": "cli-palette",
-    "title": {
-      "en": "CLI Palette",
-      "ko": "CLI 팔레트"
-    },
-    "description": {
-      "en": "A command palette pattern for terminal tools — fuzzy find, recent history, and composable actions.",
-      "ko": "터미널 도구를 위한 커맨드 팔레트 패턴 — 퍼지 검색, 최근 기록, 조합 가능한 액션."
-    },
-    "year": "2024",
-    "status": "archived",
-    "stack": ["Go", "Bubble Tea"],
-    "github": "https://github.com",
+    "github": "https://github.com/ckethan0429/minimal-blog",
     "featured": false,
     "screenshots": []
   }

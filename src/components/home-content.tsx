@@ -49,7 +49,10 @@ export function HomeContent({
           ))}
         </ul>
         <div className="mt-10 flex flex-wrap gap-3">
-          <ButtonLink href="/blog">{t.common.readBlog}</ButtonLink>
+          <ButtonLink href="/books">{t.common.viewBooks}</ButtonLink>
+          <ButtonLink href="/blog" variant="secondary">
+            {t.common.readBlog}
+          </ButtonLink>
           <ButtonLink href="/projects" variant="secondary">
             {t.common.viewProjects}
           </ButtonLink>

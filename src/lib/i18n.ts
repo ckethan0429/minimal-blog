@@ -92,6 +92,7 @@ type Messages = {
     viewAll: string;
     readBlog: string;
     viewProjects: string;
+    viewBooks: string;
     backHome: string;
     loading: string;
     draft: string;
@@ -168,6 +169,8 @@ type Messages = {
     comingSoon: string;
     pages: string;
     includes: string;
+    buyInfoTitle: string;
+    buyInfoItems: string[];
   };
   notFound: {
     code: string;
@@ -206,6 +209,7 @@ export const messages: Record<Locale, Messages> = {
       viewAll: "전체 보기",
       readBlog: "글 읽기",
       viewProjects: "프로젝트",
+      viewBooks: "전자책 보기",
       backHome: "홈으로",
       loading: "불러오는 중…",
       draft: "초안",
@@ -279,7 +283,7 @@ export const messages: Record<Locale, Messages> = {
     projects: {
       title: "프로젝트",
       description:
-        "인프라·AI·클라우드를 가로지르는 도구와 플랫폼. 오픈소스를 우선합니다.",
+        "인프라·AI 실무에서 직접 구축하고 운영한 것들. 고객사 사례는 비식별화해 실었습니다.",
       featured: "추천",
       more: "더 보기",
       archived: "보관",
@@ -293,6 +297,13 @@ export const messages: Record<Locale, Messages> = {
       comingSoon: "판매 준비 중",
       pages: "페이지",
       includes: "구성",
+      buyInfoTitle: "구매 안내",
+      buyInfoItems: [
+        "결제 즉시 이메일로 PDF 다운로드 링크가 전달됩니다 (Gumroad 자동 발송).",
+        "개인 사용 라이선스입니다. 팀·사내 공유가 필요하시면 이메일로 문의해 주세요.",
+        "디지털 상품 특성상 다운로드 후에는 환불이 어렵습니다. 결제 오류나 파일 문제는 이메일로 연락 주시면 바로 처리해 드립니다.",
+        "내용이 업데이트되면 구매자는 같은 다운로드 링크에서 최신 PDF를 다시 받으실 수 있습니다.",
+      ],
     },
     notFound: {
       code: "404",
@@ -346,6 +357,7 @@ export const messages: Record<Locale, Messages> = {
       viewAll: "View all",
       readBlog: "Read the blog",
       viewProjects: "View projects",
+      viewBooks: "Browse ebooks",
       backHome: "Back home",
       loading: "Loading…",
       draft: "Draft",
@@ -419,7 +431,7 @@ export const messages: Record<Locale, Messages> = {
     projects: {
       title: "Projects",
       description:
-        "Tools and platforms across infrastructure, AI systems, and the cloud — with open source first.",
+        "Systems I have built and operated in production across infrastructure and AI. Client work is anonymized.",
       featured: "Featured",
       more: "More projects",
       archived: "Archived",
@@ -433,6 +445,13 @@ export const messages: Record<Locale, Messages> = {
       comingSoon: "Coming soon",
       pages: "pages",
       includes: "Includes",
+      buyInfoTitle: "Purchase notes",
+      buyInfoItems: [
+        "The PDF download link is emailed immediately after checkout (delivered automatically via Gumroad).",
+        "Licensed for personal use. For team or company-wide use, please reach out by email.",
+        "As with most digital goods, refunds after download are generally not possible. For payment errors or file issues, email me and I will sort it out right away.",
+        "When the content is updated, buyers can re-download the latest PDF from the same link.",
+      ],
     },
     notFound: {
       code: "404",
