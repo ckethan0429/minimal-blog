@@ -83,6 +83,40 @@ export const books: Book[] = [
     buyUrl: "https://ethanverse784.gumroad.com/l/ioqer",
     kmongUrl: "",
   },
+  {
+    slug: "auction-checklist",
+    title: {
+      ko: "부동산 경매 실전 체크리스트",
+      en: "The Real Estate Auction Checklist (Korean)",
+    },
+    description: {
+      ko: "난이도 사다리 4단계로 배우는 권리분석, 무잉여 함정, 2026 규제 지도까지 — 낙찰이 아니라 '거르기'의 기술.",
+      en: "Rights analysis by difficulty ladder, the surplus-rule trap, and the 2026 regulation map for Korean court auctions.",
+    },
+    highlights: [
+      {
+        ko: "난이도 사다리 4단계 권리분석 (등기부 예시로 판정 연습)",
+        en: "4-level difficulty ladder with registry examples",
+      },
+      {
+        ko: "무잉여 함정 — 가짜 할인 판별법 (실제 사례)",
+        en: "The surplus-rule trap: spotting fake discounts",
+      },
+      {
+        ko: "2026 규제 지도 (DSR·규제지역·토허구역·전세대출)",
+        en: "2026 regulation map: DSR, zones, jeonse-loan rules",
+      },
+      {
+        ko: "주간 반복 워크플로우 + 인쇄용 체크리스트 5종",
+        en: "Weekly routine + 5 printable checklists",
+      },
+    ],
+    pages: 21,
+    priceKrw: 19000,
+    cover: "/images/books/auction-checklist.png",
+    buyUrl: "https://ethanverse784.gumroad.com/l/gizqys",
+    kmongUrl: "",
+  },
 ];
 
 export function formatKrw(price: number): string {
