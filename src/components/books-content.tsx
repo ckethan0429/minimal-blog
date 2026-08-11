@@ -8,7 +8,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Tag } from "@/components/ui/tag";
 import { useLocale } from "@/components/locale-provider";
 import { pickLocale } from "@/lib/i18n";
-import { formatKrw, type Book } from "@/lib/books";
+import { formatBookPrice, type Book } from "@/lib/books";
 
 type BooksContentProps = {
   books: Book[];
@@ -67,7 +67,7 @@ export function BooksContent({ books }: BooksContentProps) {
 
                   <div className="mt-2 flex flex-wrap items-center gap-3">
                     <span className="text-lg font-semibold">
-                      {formatKrw(book.priceKrw)}
+                      {formatBookPrice(book.price)}
                     </span>
                     <Tag>
                       PDF · {book.pages} {t.books.pages}

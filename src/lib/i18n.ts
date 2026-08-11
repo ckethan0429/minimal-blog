@@ -150,6 +150,9 @@ type Messages = {
     title: string;
     description: string;
   };
+  affiliate: {
+    disclosure: string;
+  };
   projects: {
     title: string;
     description: string;
@@ -269,6 +272,10 @@ export const messages: Record<Locale, Messages> = {
       description:
         "인프라, 시스템, 시간이 쌓이는 디테일에 대한 에세이와 노트.",
     },
+    affiliate: {
+      disclosure:
+        "이 게시물은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.",
+    },
     projects: {
       title: "프로젝트",
       description:
@@ -280,7 +287,7 @@ export const messages: Record<Locale, Messages> = {
     books: {
       title: "전자책",
       description:
-        "실무 인프라 경험을 그대로 정리한 실전 가이드. PDF로 바로 받아보실 수 있습니다.",
+        "국문 실전 가이드 3종과 영문판 2종. 인프라 현장 경험과 부동산 경매 체크리스트를 PDF로 바로 받아보실 수 있습니다.",
       buy: "구매하기",
       kmong: "크몽에서 구매",
       comingSoon: "판매 준비 중",
@@ -405,6 +412,10 @@ export const messages: Record<Locale, Messages> = {
       description:
         "Essays and notes on building software — infrastructure, systems, and the details that compound over time.",
     },
+    affiliate: {
+      disclosure:
+        "This post is part of the Coupang Partners program; the author receives a commission from qualifying purchases.",
+    },
     projects: {
       title: "Projects",
       description:
@@ -416,7 +427,7 @@ export const messages: Record<Locale, Messages> = {
     books: {
       title: "Books",
       description:
-        "Practical guides distilled from real infrastructure work, delivered as PDF.",
+        "Five practical PDF guides: three Korean originals and two English editions covering infrastructure and Korean real-estate auctions.",
       buy: "Buy",
       kmong: "Buy on Kmong",
       comingSoon: "Coming soon",

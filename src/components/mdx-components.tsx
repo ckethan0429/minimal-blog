@@ -14,12 +14,24 @@ import {
 import { MdxHeading } from "@/components/features/mdx-heading";
 import { PreWithCopy } from "@/components/features/copy-code";
 import { MdxImage } from "@/components/features/mdx-image";
+import { AffiliateDisclosure } from "@/components/features/affiliate-disclosure";
 
 function isExternal(href?: string) {
   return Boolean(href?.startsWith("http") || href?.startsWith("mailto:"));
 }
 
+function isAffiliate(href?: string) {
+  if (!href?.startsWith("http")) return false;
+  try {
+    const host = new URL(href).hostname;
+    return host === "coupang.com" || host.endsWith(".coupang.com");
+  } catch {
+    return false;
+  }
+}
+
 export const mdxComponents: MDXComponents = {
+  AffiliateDisclosure,
   h1: ({ className, id, children }) => (
     <MdxHeading as="h1" id={id} className={className}>
       {children}
@@ -62,7 +74,11 @@ export const mdxComponents: MDXComponents = {
           href={href}
           className={classes}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={
+            isAffiliate(href)
+              ? "noopener noreferrer sponsored nofollow"
+              : "noopener noreferrer"
+          }
           {...props}
         >
           {children}

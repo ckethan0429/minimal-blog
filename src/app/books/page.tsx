@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Books",
   description:
-    "Practical infrastructure guides — VMware to Proxmox migration and GPU server builds — as PDF ebooks.",
+    "Five practical PDF ebooks covering VMware migration, GPU server builds, and Korean real-estate auctions, including two English editions.",
   path: "/books",
 });
 

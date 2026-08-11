@@ -6,7 +6,10 @@ export type Book = {
   description: Localized;
   highlights: Localized[];
   pages: number;
-  priceKrw: number;
+  price: {
+    amount: number;
+    currency: "KRW" | "USD";
+  };
   cover: string;
   /** Direct-purchase link (Gumroad). Empty until the store page is live. */
   buyUrl: string;
@@ -44,7 +47,7 @@ export const books: Book[] = [
       },
     ],
     pages: 16,
-    priceKrw: 19000,
+    price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/vmware-exit-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/wypifn",
     kmongUrl: "",
@@ -78,7 +81,7 @@ export const books: Book[] = [
       },
     ],
     pages: 13,
-    priceKrw: 19000,
+    price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/gpu-server-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/ioqer",
     kmongUrl: "",
@@ -112,13 +115,85 @@ export const books: Book[] = [
       },
     ],
     pages: 21,
-    priceKrw: 19000,
+    price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/auction-checklist.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/gizqys",
     kmongUrl: "",
   },
+  {
+    slug: "vmware-exit-playbook",
+    title: {
+      ko: "The VMware Exit Playbook — 영문판",
+      en: "The VMware Exit Playbook (English)",
+    },
+    description: {
+      ko: "『VMware 탈출 실전 가이드』의 영문판. ESXi에서 Proxmox로 옮기는 전 과정을 계획서·런북·체크리스트와 함께 담았다.",
+      en: "ESXi to Proxmox migration, end to end — plan template, day-of runbook with rollback, and checklists included.",
+    },
+    highlights: [
+      {
+        ko: "VMware ↔ Proxmox 개념 대응표",
+        en: "VMware-to-Proxmox concept map",
+      },
+      {
+        ko: "이관 계획서 템플릿 + 당일 런북 (롤백 포함)",
+        en: "Migration plan template + day-of runbook with rollback",
+      },
+      {
+        ko: "PBS 백업·복구 훈련, 클러스터·Ceph 도입 기준",
+        en: "PBS backup drills, cluster and Ceph adoption criteria",
+      },
+      {
+        ko: "사전/사후 체크리스트 3종",
+        en: "Three pre/post-migration checklists",
+      },
+    ],
+    pages: 16,
+    price: { amount: 14, currency: "USD" },
+    cover: "/images/books/vmware-exit-guide-en.png",
+    buyUrl: "https://ethanverse784.gumroad.com/l/vmware-exit-playbook",
+    kmongUrl: "",
+  },
+  {
+    slug: "gpu-server-build-guide",
+    title: {
+      ko: "The GPU Server Build Guide — 영문판",
+      en: "The GPU Server Build Guide (English)",
+    },
+    description: {
+      ko: "『GPU 서버 구축 실전 가이드』의 영문판. 하드웨어 검수부터 패스스루, vGPU/MIG, 라이선스까지.",
+      en: "From hardware inspection to PCIe passthrough, vGPU/MIG, and licensing — with a real 8×H200 troubleshooting case.",
+    },
+    highlights: [
+      {
+        ko: "패스스루 vs vGPU vs MIG 선택 기준",
+        en: "Choosing between passthrough, vGPU, and MIG",
+      },
+      {
+        ko: "대용량 BAR·MMIO 계산법 (H200 8장 실전 사례)",
+        en: "Large-BAR / MMIO sizing with a real 8×H200 case study",
+      },
+      {
+        ko: "vGPU 라이선스 CLS/DLS, 폐쇄망 대응",
+        en: "vGPU licensing (CLS/DLS) including air-gapped setups",
+      },
+      {
+        ko: "증상별 트러블슈팅 판단표 + 개념 사전",
+        en: "Symptom-based troubleshooting matrix + glossary",
+      },
+    ],
+    pages: 14,
+    price: { amount: 14, currency: "USD" },
+    cover: "/images/books/gpu-server-guide-en.png",
+    buyUrl: "https://ethanverse784.gumroad.com/l/gpu-server-build-guide",
+    kmongUrl: "",
+  },
 ];
 
-export function formatKrw(price: number): string {
-  return `₩${price.toLocaleString("ko-KR")}`;
+export function formatBookPrice(price: Book["price"]): string {
+  return new Intl.NumberFormat(price.currency === "KRW" ? "ko-KR" : "en-US", {
+    style: "currency",
+    currency: price.currency,
+    maximumFractionDigits: 0,
+  }).format(price.amount);
 }
