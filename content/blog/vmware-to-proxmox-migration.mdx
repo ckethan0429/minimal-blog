@@ -1,0 +1,91 @@
+---
+title: "Cutting our virtualization bill ~90%: a real VMware → Proxmox migration"
+description: "After Broadcom's renewal quote came back several times higher, we moved a small ESXi estate to Proxmox VE. Here's the actual plan, the gotchas that cost real downtime, and what I'd do again."
+date: "2026-08-12"
+tags:
+  - infrastructure
+  - virtualization
+draft: false
+---
+
+# Cutting our virtualization bill ~90%: a real VMware → Proxmox migration
+
+The renewal quote is what started it. After Broadcom's acquisition of VMware, perpetual licenses went away, the products aimed at smaller customers got folded into bundles, and the number that came back was several times last year's maintenance cost. Priced per core, a modest three-host ESXi estate plus vCenter lands somewhere in the tens of thousands of dollars per year. That stopped being a line item and became a decision.
+
+We moved to **Proxmox VE**. The software bill went to zero (we kept an optional enterprise-repo subscription at roughly USD 110 per node per year — still under a tenth of the VMware bill). This is the write-up I wish I'd had before starting: the plan, the traps that actually cost us downtime, and the parts that were boringly easy.
+
+## Why Proxmox specifically
+
+I looked at the usual alternatives:
+
+- **Hyper-V** — fine if you're already a Windows shop with the licenses, weaker on Linux and storage flexibility.
+- **XCP-ng** — solid Xen stack, great management via Xen Orchestra, smaller community.
+- **Public cloud** — hands off the ops burden, but the monthly cost is several times on-prem and it raises data-sovereignty questions we couldn't wave away.
+
+Proxmox won for one blunt reason: it's the only realistic option that replaces *nearly everything* we did on VMware — virtualization, HA, live migration, snapshots, backup — at zero licensing cost. KVM under the hood, backup (PBS), clustering, and SDN are all in the box. The GUI is rougher than vCenter. That was the whole tradeoff.
+
+## The part that mattered most: inventory before you touch anything
+
+The migration itself is mechanical. The failures all trace back to something you didn't write down. Before moving a single VM I built an inventory with, per guest:
+
+- **Firmware mode: BIOS or UEFI.** Write this down. It is the single most important field. (More on why below.)
+- Disk layout and total size, and whether `/etc/fstab` references `/dev/sdX` or UUIDs.
+- NIC names as the guest sees them (`ens192`, `eth0`, …).
+- OS, and whether VMware Tools / open-vm-tools is installed.
+- A rollback owner and a maximum acceptable downtime per service.
+
+Then I picked the migration order: least critical first, to build confidence and to shake out the process on something that doesn't page anyone.
+
+## Moving the VMs
+
+Proxmox 8.2+ ships an **ESXi import wizard** that connects straight to an ESXi host — no vCenter required — and pulls whole VMs across. In the web UI it's `Datacenter → Storage → Add → ESXi`, then pick the VM and import.
+
+Two decisions in that dialog decide whether it boots:
+
+- **Disk bus.** Import on SATA first, confirm it boots, *then* switch to VirtIO. Especially on Windows. Jumping straight to VirtIO on a guest that's never seen the driver gives you an unbootable disk.
+- **Firmware.** If the source was UEFI, use OVMF and add an EFI disk. If it was BIOS, use SeaBIOS. **It must match the source.**
+
+For older ESXi or air-gapped networks the wizard isn't available, and it's `ovftool` (or copying the vmdk straight off the datastore) plus `qm importdisk`:
+
+```bash
+qm create 201 --name web01 --memory 8192 --cores 4 --net0 virtio,bridge=vmbr0
+qm importdisk 201 web01-disk1.vmdk local-lvm
+qm set 201 --scsi0 local-lvm:vm-201-disk-0 --scsihw virtio-scsi-single
+qm set 201 --boot order=scsi0
+# If the source was UEFI:
+qm set 201 --bios ovmf --efidisk0 local-lvm:1,efitype=4m,pre-enrolled-keys=0
+```
+
+To keep downtime small: do a first pass while the VM is still running, then take the service offline, shut down the source, transfer only the delta, boot on Proxmox, verify, and cut over DNS or the load balancer.
+
+## The gotchas that actually cost us
+
+Every one of these is a real incident, not a hypothetical.
+
+**1. BIOS/UEFI mismatch — the #1 cause of "it won't boot."** If the source was installed under legacy BIOS and you build the new VM as UEFI, the firmware finds no ESP to boot from and just sits there. The reverse fails identically. This is the entire reason firmware mode is in the inventory. I've watched a team start reinstalling an OS over this before someone caught it.
+
+**2. Linux NIC renaming kills the network on first boot.** When the virtual hardware changes, an interface that was `ens192` can come up as `ens18`. If netplan or ifcfg still names the old interface, the box boots fine and has no network. Match on MAC address or use an `en*` wildcard so the config survives the rename.
+
+**3. The guest agent installed but never enabled.** Installing QEMU Guest Agent *inside* the guest does nothing on its own — you also need `agent: 1` in the VM options on the Proxmox side. Miss it and clean shutdowns and IP reporting silently don't work.
+
+**4. Windows leftovers.** Remove VMware Tools *before* migrating; leftovers cause slow boots and failing services. Install the virtio-win drivers on the source first. And expect Windows to want reactivation — the hardware changed underneath it.
+
+**5. Backups on the same box.** When the box dies, so does the backup. We stood up **Proxmox Backup Server on separate hardware** and — this is the part people skip — actually ran restore drills. A backup you've never restored is a hope, not a backup.
+
+## Storage, briefly
+
+If you're used to VMware's single datastore, Proxmox's menu of options is disorienting. The short version we settled on:
+
+- **One node:** ZFS (RAID1) for snapshots, checksums, and local speed.
+- **Two nodes:** ZFS plus scheduled replication (`pvesr`) for HA-like behavior.
+- **Three or more with budget:** Ceph for real distributed storage and real HA — powerful, and genuinely nontrivial to operate. Plan an expansion once you pass ~70% utilization.
+
+## Was it worth it
+
+Yes, but be honest about what you're trading. You give up vCenter's polish and a support contract with a single throat to choke. You get the licensing bill cut by an order of magnitude, a stack that's fully open, and — after the learning curve — operations that are genuinely pleasant. Live migration makes patching non-disruptive; PBS makes backups boring in the good way.
+
+The migration wasn't hard. It was *unforgiving of missing information*. Spend your time on the inventory and the rollback plan, match firmware exactly, and drill your restores. Do that and the rest is mechanical.
+
+---
+
+*I wrote up the full version of this — inventory templates, a day-of runbook with rollback, PBS restore drills, Ceph notes, and a command cheat sheet — as a short PDF: [The VMware Exit Playbook](https://ethanverse784.gumroad.com/l/vmware-exit-playbook). The post above is the honest short version; the book is for when you're the one holding the maintenance window.*
