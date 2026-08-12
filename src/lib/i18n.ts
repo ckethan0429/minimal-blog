@@ -171,6 +171,7 @@ type Messages = {
     comingSoon: string;
     pages: string;
     includes: string;
+    bonusesLabel: string;
     buyInfoTitle: string;
     buyInfoItems: string[];
   };
@@ -301,6 +302,7 @@ export const messages: Record<Locale, Messages> = {
       comingSoon: "판매 준비 중",
       pages: "페이지",
       includes: "구성",
+      bonusesLabel: "함께 제공 — 따로 만들 필요 없는 자료",
       buyInfoTitle: "구매 안내",
       buyInfoItems: [
         "결제 즉시 이메일로 PDF 다운로드 링크가 전달됩니다 (래피드·Gumroad 자동 발송).",
@@ -452,6 +454,7 @@ export const messages: Record<Locale, Messages> = {
       comingSoon: "Coming soon",
       pages: "pages",
       includes: "Includes",
+      bonusesLabel: "Also included — so you don't have to build them",
       buyInfoTitle: "Purchase notes",
       buyInfoItems: [
         "The PDF download link is emailed immediately after checkout (delivered automatically via Latpeed or Gumroad).",

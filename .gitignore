@@ -47,3 +47,8 @@ next-env.d.ts
 project-300k/
 # planning scratch docs
 [1-7]-*/
+
+# Private agent skills & scratch
+.claude/
+tmp/
+paseo.json

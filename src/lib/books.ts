@@ -5,6 +5,10 @@ export type Book = {
   title: Localized;
   description: Localized;
   highlights: Localized[];
+  /** Named appendices/materials included with the book, shown as a bonus stack. */
+  bonuses: Localized[];
+  /** One-line price anchor comparing the book to the costlier alternative. */
+  anchor: Localized;
   pages: number;
   price: {
     amount: number;
@@ -36,18 +40,32 @@ export const books: Book[] = [
         en: "VMware-to-Proxmox concept map",
       },
       {
-        ko: "이관 계획서 템플릿 + 당일 런북 (롤백 포함)",
-        en: "Migration plan template + day-of runbook with rollback",
+        ko: "파일럿 → 본 이관 → 검증까지 순서대로 따라가는 절차",
+        en: "A step-by-step path: pilot, migration, verification",
       },
       {
         ko: "PBS 백업·복구 훈련, 클러스터·Ceph 도입 기준",
         en: "PBS backup drills, cluster and Ceph adoption criteria",
       },
+    ],
+    bonuses: [
       {
-        ko: "사전/사후 체크리스트 3종",
-        en: "Three pre/post-migration checklists",
+        ko: "이관 계획서 템플릿 — 회의에 그대로 들고 가는 문서",
+        en: "Migration plan template — ready to bring to a meeting",
+      },
+      {
+        ko: "마이그레이션 당일 런북 (롤백 절차 포함)",
+        en: "Day-of runbook with rollback procedures",
+      },
+      {
+        ko: "체크리스트 3종 — 사전 준비 · 사후 검증 · 완료 판정",
+        en: "Three checklists: pre-flight, post-migration, definition of done",
       },
     ],
+    anchor: {
+      ko: "같은 범위의 이관 컨설팅은 40만 원부터 받습니다. 계획 단계를 직접 하실 수 있게 만든 가이드입니다.",
+      en: "A consulting engagement for this scope starts at ₩400,000+. This guide lets you run the planning yourself.",
+    },
     pages: 16,
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/vmware-exit-guide.png",
@@ -78,11 +96,21 @@ export const books: Book[] = [
         ko: "vGPU 라이선스 CLS/DLS, 폐쇄망 대응",
         en: "vGPU licensing (CLS/DLS) including air-gapped setups",
       },
+    ],
+    bonuses: [
       {
-        ko: "증상별 트러블슈팅 판단표 + 개념 사전",
-        en: "Symptom-based troubleshooting matrix + glossary",
+        ko: "증상별 트러블슈팅 판단표 — 막혔을 때 어디를 볼지 찾는 지도",
+        en: "Symptom-based troubleshooting matrix — where to look when stuck",
+      },
+      {
+        ko: "개념 사전 — IOMMU·FLR·OVMF·MIG 등 헷갈리는 용어 정리",
+        en: "Glossary of the confusing bits: IOMMU, FLR, OVMF, MIG",
       },
     ],
+    anchor: {
+      ko: "GPU 서버 구축 의뢰는 60만 원부터 받습니다. 시행착오로 태울 주말을 책값으로 줄이는 쪽이 쌉니다.",
+      en: "A build engagement starts at ₩600,000+. The troubleshooting chapters alone can save you a weekend.",
+    },
     pages: 13,
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/gpu-server-guide.png",
@@ -110,14 +138,28 @@ export const books: Book[] = [
         en: "The surplus-rule trap: spotting fake discounts",
       },
       {
-        ko: "2026 규제 지도 (DSR·규제지역·토허구역·전세대출)",
-        en: "2026 regulation map: DSR, zones, jeonse-loan rules",
-      },
-      {
-        ko: "주간 반복 워크플로우 + 인쇄용 체크리스트 5종",
-        en: "Weekly routine + 5 printable checklists",
+        ko: "주간 반복 워크플로우 — 100건 걸러 1건 사는 루틴",
+        en: "A weekly routine built for filtering, not chasing",
       },
     ],
+    bonuses: [
+      {
+        ko: "인쇄용 체크리스트 5종 — 임장·입찰 전 그대로 출력해서 사용",
+        en: "5 printable checklists for site visits and bidding day",
+      },
+      {
+        ko: "2026 규제 지도 — DSR·규제지역·토허구역·전세대출 최신 기준",
+        en: "2026 regulation map: DSR, zones, land-permit areas, jeonse loans",
+      },
+      {
+        ko: "경매 용어 사전 — 말소기준권리부터 인도명령까지",
+        en: "Auction glossary, from baseline rights to eviction orders",
+      },
+    ],
+    anchor: {
+      ko: "권리분석 실수 하나가 보증금 수백만 원을 지웁니다. 입찰 전에 '거르는 기준'부터 갖추는 값입니다.",
+      en: "One rights-analysis mistake can erase millions of won. This is the cost of a filter you use before bidding.",
+    },
     pages: 21,
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/auction-checklist.png",
@@ -141,18 +183,32 @@ export const books: Book[] = [
         en: "VMware-to-Proxmox concept map",
       },
       {
-        ko: "이관 계획서 템플릿 + 당일 런북 (롤백 포함)",
-        en: "Migration plan template + day-of runbook with rollback",
+        ko: "파일럿 → 본 이관 → 검증까지 순서대로 따라가는 절차",
+        en: "A step-by-step path: pilot, migration, verification",
       },
       {
         ko: "PBS 백업·복구 훈련, 클러스터·Ceph 도입 기준",
         en: "PBS backup drills, cluster and Ceph adoption criteria",
       },
+    ],
+    bonuses: [
       {
-        ko: "사전/사후 체크리스트 3종",
-        en: "Three pre/post-migration checklists",
+        ko: "이관 계획서 템플릿",
+        en: "Migration plan template — ready to bring to a meeting",
+      },
+      {
+        ko: "마이그레이션 당일 런북 (롤백 절차 포함)",
+        en: "Day-of runbook with rollback procedures",
+      },
+      {
+        ko: "체크리스트 3종 — 사전 준비 · 사후 검증 · 완료 판정",
+        en: "Three checklists: pre-flight, post-migration, definition of done",
       },
     ],
+    anchor: {
+      ko: "같은 범위의 이관 컨설팅은 수백 달러부터 시작합니다.",
+      en: "Consulting for this scope starts in the hundreds of dollars. The playbook lets you run the planning yourself.",
+    },
     pages: 16,
     price: { amount: 14, currency: "USD" },
     cover: "/images/books/vmware-exit-guide-en.png",
@@ -183,11 +239,21 @@ export const books: Book[] = [
         ko: "vGPU 라이선스 CLS/DLS, 폐쇄망 대응",
         en: "vGPU licensing (CLS/DLS) including air-gapped setups",
       },
+    ],
+    bonuses: [
       {
-        ko: "증상별 트러블슈팅 판단표 + 개념 사전",
-        en: "Symptom-based troubleshooting matrix + glossary",
+        ko: "증상별 트러블슈팅 판단표",
+        en: "Symptom-based troubleshooting matrix — where to look when stuck",
+      },
+      {
+        ko: "개념 사전",
+        en: "Glossary of the confusing bits: IOMMU, FLR, OVMF, MIG",
       },
     ],
+    anchor: {
+      ko: "GPU 서버 구축 의뢰는 수백 달러부터 시작합니다.",
+      en: "A build engagement starts in the hundreds of dollars. The troubleshooting chapters alone can save you a weekend.",
+    },
     pages: 14,
     price: { amount: 14, currency: "USD" },
     cover: "/images/books/gpu-server-guide-en.png",

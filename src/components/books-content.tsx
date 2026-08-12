@@ -65,6 +65,28 @@ export function BooksContent({ books }: BooksContentProps) {
                     ))}
                   </ul>
 
+                  {book.bonuses.length > 0 ? (
+                    <div className="mt-1 rounded-lg border border-border/70 bg-muted/30 px-4 py-3">
+                      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                        {t.books.bonusesLabel}
+                      </p>
+                      <ul className="mt-2 flex flex-col gap-1.5 text-sm text-muted-foreground">
+                        {book.bonuses.map((b, i) => (
+                          <li key={i} className="flex gap-2">
+                            <span aria-hidden className="text-foreground/50">
+                              +
+                            </span>
+                            {pickLocale(b, locale)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  <p className="text-sm text-foreground/80">
+                    {pickLocale(book.anchor, locale)}
+                  </p>
+
                   <div className="mt-2 flex flex-wrap items-center gap-3">
                     <span className="text-lg font-semibold">
                       {formatBookPrice(book.price)}
