@@ -4,6 +4,15 @@ import { withContentCollections } from "@content-collections/next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/book",
+        destination: "/books",
+        permanent: true,
+      },
+    ];
+  },
   // Smaller responses for text assets
   compress: true,
   images: {

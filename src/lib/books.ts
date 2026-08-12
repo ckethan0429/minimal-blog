@@ -52,7 +52,7 @@ export const books: Book[] = [
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/vmware-exit-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/wypifn",
-    latpeedUrl: "",
+    latpeedUrl: "https://www.latpeed.com/products/1c2z1",
     kmongUrl: "",
   },
   {
@@ -87,7 +87,7 @@ export const books: Book[] = [
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/gpu-server-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/ioqer",
-    latpeedUrl: "",
+    latpeedUrl: "https://www.latpeed.com/products/ePoxl",
     kmongUrl: "",
   },
   {

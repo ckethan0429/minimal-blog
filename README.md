@@ -207,6 +207,8 @@ Edit **`content/projects/projects.json`** (structured data, not React components
 | `/blog` | Index with search + tag filter |
 | `/blog/[slug]` | Article (SSG): TOC, prev/next, related, optional Giscus |
 | `/projects` | Featured / more / archived sections |
+| `/books` | Ebook catalog with Latpeed domestic-payment and Gumroad international-payment buttons |
+| `/book` | Permanent compatibility redirect to `/books` |
 | `/about` | Bio, principles, contact |
 | 404 | Localized not-found |
 | `/feed.xml` · `/sitemap.xml` · `/robots.txt` | Feeds & SEO |
