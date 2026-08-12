@@ -8,8 +8,6 @@ tags:
 draft: false
 ---
 
-# Cutting our virtualization bill ~90%: a real VMware → Proxmox migration
-
 The renewal quote is what started it. After Broadcom's acquisition of VMware, perpetual licenses went away, the products aimed at smaller customers got folded into bundles, and the number that came back was several times last year's maintenance cost. Priced per core, a modest three-host ESXi estate plus vCenter lands somewhere in the tens of thousands of dollars per year. That stopped being a line item and became a decision.
 
 We moved to **Proxmox VE**. The software bill went to zero (we kept an optional enterprise-repo subscription at roughly USD 110 per node per year — still under a tenth of the VMware bill). This is the write-up I wish I'd had before starting: the plan, the traps that actually cost us downtime, and the parts that were boringly easy.

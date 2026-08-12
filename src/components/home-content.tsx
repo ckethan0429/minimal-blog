@@ -39,12 +39,12 @@ export function HomeContent({
         >
           {t.home.focus.map((area, index) => (
             <li key={area} className="flex items-center gap-3">
-              {index > 0 ? (
+              <span>{area}</span>
+              {index < t.home.focus.length - 1 ? (
                 <span aria-hidden="true" className="text-border">
                   ·
                 </span>
               ) : null}
-              <span>{area}</span>
             </li>
           ))}
         </ul>

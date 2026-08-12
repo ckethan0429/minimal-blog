@@ -21,7 +21,7 @@ draft: false
 ExecStartPre=-/path/to/venv/bin/python /path/to/reapply.py
 ```
 
-macOS에는 systemd가 없다. 대신 **launchd**가 그 역할을 한다. 그런데 launchd에는 `ExecStartPre`에 정확히 대응하는 개념이 없다. 대신 방향을 바꿔서 생각하면 더 깔끔한 방법이 있다 — **파일이 바뀔 때 반응하는 에이전트**를 하나 두는 것이다. `WatchPaths`가 그 역할을 한다.
+macOS에는 systemd가 없다. 대신 **launchd**가 그 역할을 한다. 그런데 launchd에는 `ExecStartPre`에 정확히 대응하는 개념이 없다. 대신 접근 방식을 바꾸면 오히려 더 깔끔하게 풀린다. **파일이 바뀔 때 반응하는 에이전트**를 하나 두는 것이다. `WatchPaths`가 그 역할을 한다.
 
 ```xml
 <!-- ~/Library/LaunchAgents/com.example.reapply.plist -->
@@ -56,9 +56,9 @@ launchctl load -w "$PLIST"
 
 ## 2. `timeout`이 없다
 
-리눅스 스크립트에 흔한 `timeout 30 some-command`. macOS 기본 설치에는 `timeout`이 없다. GNU coreutils를 Homebrew로 깔면 `gtimeout`이라는 이름으로 들어온다.
+리눅스 스크립트에서 흔히 쓰는 `timeout 30 some-command`는 macOS에서 바로 막힌다. 기본 설치에 `timeout`이 없기 때문이다. GNU coreutils를 Homebrew로 설치하면 `gtimeout`이라는 이름으로 들어온다.
 
-의존성을 강제하고 싶지 않다면, 있으면 쓰고 없으면 순수 셸로 흉내 내는 헬퍼를 두는 게 이식성이 좋다.
+의존성을 강제하고 싶지 않다면, 있으면 그대로 쓰고 없으면 셸만으로 흉내 내는 헬퍼를 두는 편이 이식성이 좋다.
 
 ```bash
 run_timeout() { # run_timeout SECONDS cmd...
@@ -76,7 +76,7 @@ run_timeout() { # run_timeout SECONDS cmd...
 }
 ```
 
-이러면 coreutils가 있든 없든 `run_timeout 30 some-command`이 동작한다.
+이렇게 해두면 coreutils가 설치돼 있든 아니든 `run_timeout 30 some-command`가 그대로 동작한다.
 
 ## 3. 자격 증명은 파일이 아니라 Keychain에 있을 수 있다
 
@@ -108,17 +108,17 @@ fi
 
 ## 보너스: BSD vs GNU 유틸리티
 
-macOS의 기본 커맨드라인 도구는 GNU가 아니라 **BSD** 계열이다. 자주 물리는 것들:
+macOS의 기본 커맨드라인 도구는 GNU가 아니라 **BSD** 계열이다. 자주 걸리는 차이는 다음과 같다.
 
 | 작업 | GNU (리눅스) | BSD (macOS) |
 | --- | --- | --- |
 | 제자리 편집 | `sed -i 's/a/b/' f` | `sed -i '' 's/a/b/' f` |
-| 절대경로 해석 | `readlink -f path` | `readlink`에 `-f` 없음 (`grealink` 또는 `cd`+`pwd`) |
+| 절대경로 해석 | `readlink -f path` | `readlink`에 `-f` 없음 (`greadlink` 또는 `cd`+`pwd`) |
 | 상대 날짜 | `date -d '1 day ago'` | `date -v-1d` |
-| base64 줄바꿈 | 기본 wrap | `-b 0`으로 wrap 해제 |
+| `base64` 줄바꿈 | 기본 wrap | `-b 0`으로 wrap 해제 |
 
-`sed -i`가 가장 악명 높다. 리눅스에서 잘 돌던 스크립트가 macOS에서 `sed -i` 뒤 인자를 백업 확장자로 오해해서 엉뚱한 파일을 만들거나 에러를 낸다.
+그중 `sed -i`가 가장 악명 높다. 리눅스에서 잘 돌던 스크립트를 macOS에서 실행하면 `sed -i` 뒤에 오는 인자를 백업 확장자로 해석해, 엉뚱한 파일을 만들거나 에러를 낸다.
 
 ## 정리
 
-이식의 핵심은 "겉으로 같은 bash 스크립트"라는 착각을 버리는 것이다. 실제로 갈라지는 지점은 세 층이다 — 서비스 매니저(systemd/launchd), 기본 유틸리티(GNU/BSD, `timeout` 유무), 자격 증명 저장소(파일/Keychain). 이 세 가지를 `command -v`와 분기로 감싸 두면, 하나의 스크립트로 리눅스와 macOS를 모두 커버할 수 있다.
+이식의 핵심은 "같은 bash 스크립트니까 그대로 돌아가겠지"라는 생각을 버리는 것이다. 실제로 갈라지는 지점은 세 층이다. 서비스 매니저(systemd/launchd), 기본 유틸리티(GNU/BSD, `timeout` 유무), 자격 증명 저장소(파일/Keychain). 이 세 가지만 `command -v`와 분기로 감싸 두면 스크립트 하나로 리눅스와 macOS를 모두 지원할 수 있다.

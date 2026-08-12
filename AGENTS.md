@@ -87,11 +87,12 @@ Body in Markdown/MDX (one language per post — KO or EN as authored).
 h2/h3 feed the table of contents.
 ```
 
-4. **Do not** invent a CMS. Do not put the body in frontmatter as a custom field for authors — schema includes `content` from the file body via Content Collections.
-5. **Drafts:** `draft: true` → visible only when `NODE_ENV === "development"`.
-6. **Cover:** place file in `public/…`, reference as `/…` path.
-7. **Validate:** `npm run build` (invalid frontmatter fails the build).
-8. **Query posts** only through `src/lib/posts.ts` (`getPublishedPosts`, `getPostBySlug`, etc.).
+4. **No `#` H1 in the body.** `PostHeader` renders the frontmatter `title` as the page `<h1>`; repeating it in the body duplicates the title on screen. Start the body at `##`.
+5. **Do not** invent a CMS. Do not put the body in frontmatter as a custom field for authors — schema includes `content` from the file body via Content Collections.
+6. **Drafts:** `draft: true` → visible only when `NODE_ENV === "development"`.
+7. **Cover:** place file in `public/…`, reference as `/…` path.
+8. **Validate:** `npm run build` (invalid frontmatter fails the build).
+9. **Query posts** only through `src/lib/posts.ts` (`getPublishedPosts`, `getPostBySlug`, etc.).
 
 ### Frontmatter schema (source of truth)
 

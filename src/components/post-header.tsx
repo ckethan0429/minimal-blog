@@ -3,7 +3,7 @@
 import Image from "next/image";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/posts";
-import { Heading, Text } from "@/components/ui/heading";
+import { Heading } from "@/components/ui/heading";
 import { TagList } from "@/components/ui/tag";
 import { ViewCountPlaceholder } from "@/components/features/view-count";
 import { features } from "@/lib/features";
@@ -50,10 +50,6 @@ export function PostHeader({ post }: PostHeaderProps) {
       <Heading as={1} size="2xl">
         {post.title}
       </Heading>
-
-      <Text lead className="mt-5">
-        {post.description}
-      </Text>
 
       <TagList tags={post.tags} className="mt-7" />
 
