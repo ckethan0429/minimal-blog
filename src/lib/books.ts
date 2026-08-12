@@ -13,6 +13,8 @@ export type Book = {
   cover: string;
   /** Direct-purchase link (Gumroad). Empty until the store page is live. */
   buyUrl: string;
+  /** Domestic-payment link (Latpeed). Empty until the product page is live. */
+  latpeedUrl: string;
   /** Kmong listing link. Empty until the listing passes review. */
   kmongUrl: string;
 };
@@ -50,6 +52,7 @@ export const books: Book[] = [
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/vmware-exit-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/wypifn",
+    latpeedUrl: "",
     kmongUrl: "",
   },
   {
@@ -84,6 +87,7 @@ export const books: Book[] = [
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/gpu-server-guide.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/ioqer",
+    latpeedUrl: "",
     kmongUrl: "",
   },
   {
@@ -118,6 +122,7 @@ export const books: Book[] = [
     price: { amount: 19000, currency: "KRW" },
     cover: "/images/books/auction-checklist.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/gizqys",
+    latpeedUrl: "https://www.latpeed.com/products/COj1t",
     kmongUrl: "",
   },
   {
@@ -152,6 +157,7 @@ export const books: Book[] = [
     price: { amount: 14, currency: "USD" },
     cover: "/images/books/vmware-exit-guide-en.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/vmware-exit-playbook",
+    latpeedUrl: "",
     kmongUrl: "",
   },
   {
@@ -186,6 +192,7 @@ export const books: Book[] = [
     price: { amount: 14, currency: "USD" },
     cover: "/images/books/gpu-server-guide-en.png",
     buyUrl: "https://ethanverse784.gumroad.com/l/gpu-server-build-guide",
+    latpeedUrl: "",
     kmongUrl: "",
   },
 ];

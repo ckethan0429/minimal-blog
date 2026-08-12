@@ -25,7 +25,7 @@ export function BooksContent({ books }: BooksContentProps) {
         <div className="flex flex-col gap-12">
           {books.map((book) => {
             const title = pickLocale(book.title, locale);
-            const available = book.buyUrl || book.kmongUrl;
+            const available = book.latpeedUrl || book.buyUrl || book.kmongUrl;
 
             return (
               <article
@@ -75,9 +75,18 @@ export function BooksContent({ books }: BooksContentProps) {
                   </div>
 
                   <div className="mt-1 flex flex-wrap gap-3">
+                    {book.latpeedUrl ? (
+                      <ButtonLink href={book.latpeedUrl} external>
+                        {t.books.latpeed}
+                      </ButtonLink>
+                    ) : null}
                     {book.buyUrl ? (
-                      <ButtonLink href={book.buyUrl} external>
-                        {t.books.buy}
+                      <ButtonLink
+                        href={book.buyUrl}
+                        external
+                        variant={book.latpeedUrl ? "secondary" : "primary"}
+                      >
+                        {book.latpeedUrl ? t.books.gumroad : t.books.buy}
                       </ButtonLink>
                     ) : null}
                     {book.kmongUrl ? (

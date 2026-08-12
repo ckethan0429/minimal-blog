@@ -165,6 +165,8 @@ type Messages = {
     title: string;
     description: string;
     buy: string;
+    latpeed: string;
+    gumroad: string;
     kmong: string;
     comingSoon: string;
     pages: string;
@@ -293,13 +295,16 @@ export const messages: Record<Locale, Messages> = {
       description:
         "국문 실전 가이드 3종과 영문판 2종. 인프라 현장 경험과 부동산 경매 체크리스트를 PDF로 바로 받아보실 수 있습니다.",
       buy: "구매하기",
+      latpeed: "래피드에서 구매",
+      gumroad: "Gumroad에서 구매",
       kmong: "크몽에서 구매",
       comingSoon: "판매 준비 중",
       pages: "페이지",
       includes: "구성",
       buyInfoTitle: "구매 안내",
       buyInfoItems: [
-        "결제 즉시 이메일로 PDF 다운로드 링크가 전달됩니다 (Gumroad 자동 발송).",
+        "결제 즉시 이메일로 PDF 다운로드 링크가 전달됩니다 (래피드·Gumroad 자동 발송).",
+        "래피드는 국내 카드·간편결제, Gumroad는 해외 결제(카드·PayPal)를 지원합니다. 편한 쪽으로 구매하시면 됩니다.",
         "개인 사용 라이선스입니다. 팀·사내 공유가 필요하시면 이메일로 문의해 주세요.",
         "디지털 상품 특성상 다운로드 후에는 환불이 어렵습니다. 결제 오류나 파일 문제는 이메일로 연락 주시면 바로 처리해 드립니다.",
         "내용이 업데이트되면 구매자는 같은 다운로드 링크에서 최신 PDF를 다시 받으실 수 있습니다.",
@@ -441,13 +446,16 @@ export const messages: Record<Locale, Messages> = {
       description:
         "Five practical PDF guides: three Korean originals and two English editions covering infrastructure and Korean real-estate auctions.",
       buy: "Buy",
+      latpeed: "Buy on Latpeed",
+      gumroad: "Buy on Gumroad",
       kmong: "Buy on Kmong",
       comingSoon: "Coming soon",
       pages: "pages",
       includes: "Includes",
       buyInfoTitle: "Purchase notes",
       buyInfoItems: [
-        "The PDF download link is emailed immediately after checkout (delivered automatically via Gumroad).",
+        "The PDF download link is emailed immediately after checkout (delivered automatically via Latpeed or Gumroad).",
+        "Latpeed handles Korean domestic cards and local wallets; Gumroad handles international cards and PayPal. Pick whichever suits you.",
         "Licensed for personal use. For team or company-wide use, please reach out by email.",
         "As with most digital goods, refunds after download are generally not possible. For payment errors or file issues, email me and I will sort it out right away.",
         "When the content is updated, buyers can re-download the latest PDF from the same link.",
