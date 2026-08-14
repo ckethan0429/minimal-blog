@@ -15,7 +15,7 @@ export const siteConfig = {
     url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
     twitter: "",
     github: "https://github.com/ckethan0429",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/changkyun-ahn-014159197/",
     role: "Infrastructure Engineer",
     focus: [
       "Infrastructure",
